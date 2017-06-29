@@ -1,0 +1,39 @@
+.nav{
+    width: 80%;
+}
+ul.nav li{
+    padding-right:18px;
+}
+.modal-content {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #999;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+    box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+    background-clip: padding-box;
+    margin-left: 0;
+    margin-right: 0;
+    right: 875px;
+    width: 81%;
+}
+
+.crop {
+    overflow: hidden;
+}
+div {
+    cursor: pointer;
+}
+.first{
+    color: red;
+}
+.favorite{
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
+.favorite-first:hover{
+    color: red;
+}

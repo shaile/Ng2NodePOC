@@ -1,0 +1,121 @@
+<div class="container">
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <ul class="nav nav-pills pull-left" role="tablist">
+        <li role="presentation" class="active"><a [routerLink]="['/users']">Home </a></li>
+        <!--<li role="presentation"><a [routerLink]="['/']">Users</a></li>-->
+      </ul>
+      <button type="button" class="btn btn-default navbar-btn" [routerLink]="['/create']">Add</button>
+      <button type="button" class="btn btn-default navbar-btn"><a [routerLink]="['/login']">Logout</a></button>
+      <span>{{currentUser[0].id}}</span>
+    </div>
+  </nav>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="custom-search-input">
+        <div class="input-group col-md-12">
+          <input type="text" [(ngModel)]="searchStr" class="form-control input-lg" placeholder="Search" />
+          <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update {{user.name}} Info</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" [routerLink]="['/users']">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+          <div *ngIf="success" class="alert alert-success fade in alert-dismissable" style="margin-top:18px;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+            <strong>{{user.name}} </strong>{{success}}.
+          </div>
+
+          <form class="form-horizontal" #updateUserform="ngForm" novalidate (ngSubmit)="updateUser(updateUserform)" method="POST">
+            <fieldset>
+              <div class="control-group">
+                <!-- name -->
+                <label class="control-label" for="name">Name</label>
+                <div class="controls">
+                  <input type="text" id="name" name="name" [(ngModel)]="user.name" placeholder="" class="input-xlarge">
+                </div>
+              </div>
+              <div class="control-group">
+                <!-- name -->
+                <label class="control-label" for="address">Address</label>
+                <div class="controls">
+                  <textarea id="address" name="address" [(ngModel)]="user.address" placeholder="" class="input-xlarge"></textarea>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <!-- E-mail -->
+                <label class="control-label" for="email">E-mail</label>
+                <div class="controls">
+                  <input type="text" id="email" name="email" [(ngModel)]="user.email" placeholder="" class="input-xlarge">
+                </div>
+              </div>
+
+              <div class="control-group">
+                <!-- name -->
+                <label class="control-label" for="phone">Phone</label>
+                <div class="controls">
+                  <input type="text" id="phone" name="phone" [(ngModel)]="user.phone" placeholder="" class="input-xlarge">
+                  <p class="help-block">&nbsp;</p>
+                </div>
+              </div>
+              <div class="control-group">
+                Password
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                  <input type="password" id="password" name="password" [(ngModel)]="user.password" placeholder="" class="input-xlarge">
+                  <p class="help-block">Password should be at least 4 characters</p>
+                </div>
+              </div>
+            </fieldset>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button *ngIf="!loading" type="submit" class="btn btn-primary">Update</button>
+              <button *ngIf="loading" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Favorite</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr [ngClass]="{favorite:i==0}" *ngFor="let employee of employees| searchPipe: searchStr | orderBy:order; let i = index;">
+        <td>{{employee.name}}</td>
+        <td>{{employee.address}}</td>
+        <td>{{employee.email}}</td>
+        <td>{{employee.phone}}</td>
+        <td><span class="glyphicon glyphicon-heart-empty favorite-first" (click)="favorite(employee.id)" [ngClass]="{first:i==0}">&nbsp;</span></td>
+        <td><span class="glyphicon glyphicon-edit" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal" data-whatever="employee.name"
+            (click)="getUserByID(employee.id)"></span></td>
+        <td><span class="glyphicon glyphicon-trash" (click)="deletUser(employee.id)" style="cursor:pointer"></span></td>
+      </tr>
+    </tbody>
+  </table>

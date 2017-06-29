@@ -1,0 +1,77 @@
+<div class="container">
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <ul class="nav nav-pills pull-left" role="tablist">
+        <li role="presentation" class="active"><a [routerLink]="['/users']">Home </a></li>
+        <!--<li role="presentation"><a [routerLink]="['/users']">Users</a></li>-->
+      </ul>
+      <!--<button type="button" class="btn btn-default navbar-btn"><a [routerLink]="['/login']">Logout</a></button>-->
+      <span>{{currentUser}}</span>
+    </div>
+  </nav>
+<form class="form-horizontal" #userform="ngForm" novalidate (ngSubmit)="createUser(userform)" method="POST">
+  <fieldset>
+    <div id="legend">
+      <legend class="">Add New User</legend>
+    </div>
+    <div class="control-group">
+      <!-- name -->
+      <label class="control-label"  for="name">Name</label>
+      <div class="controls">
+        <input type="text" id="name" name="name" [(ngModel)]="user.name" placeholder="" class="input-xlarge">
+        {{user.name}}
+      </div>
+    </div>
+     <div class="control-group">
+      <!-- name -->
+      <label class="control-label"  for="address">Address</label>
+      <div class="controls">
+        <textarea id="address" name="address" [(ngModel)]="user.address" placeholder="" class="input-xlarge"></textarea>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="email">E-mail</label>
+      <div class="controls">
+        <input type="text" id="email" name="email" [(ngModel)]="user.email" placeholder="" class="input-xlarge">
+      </div>
+    </div>
+ 
+      <div class="control-group">
+      <!-- name -->
+      <label class="control-label"  for="phone">Phone</label>
+      <div class="controls">
+        <input type="text" id="phone" name="phone" [(ngModel)]="user.phone" placeholder="" class="input-xlarge">
+         <p class="help-block">&nbsp;</p>
+      </div>
+    </div>
+
+    <div class="control-group">
+       Password
+      <label class="control-label" for="password">Password</label>
+      <div class="controls">
+        <input type="password" id="password" name="password" [(ngModel)]="user.password" placeholder="" class="input-xlarge">
+        <p class="help-block">Password should be at least 4 characters</p>
+      </div>
+    </div>
+ 
+    <!--<div class="control-group">
+       Password 
+      <label class="control-label"  for="password_confirm">Password (Confirm)</label>
+      <div class="controls">
+        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+        <p class="help-block">Please confirm password</p>
+      </div>
+    </div>-->
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button *ngIf="!loading" type="submit" class="btn btn-success" >Register</button>
+        <button *ngIf="loading" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+              
+      </div>
+    </div>
+  </fieldset>
+</form>
