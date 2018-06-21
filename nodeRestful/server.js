@@ -176,7 +176,7 @@ server.route({
 
 
 /**
- * Delete user
+ * Delete user by user Id
  */
 server.route({
     method: 'DELETE',
